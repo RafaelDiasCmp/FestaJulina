@@ -10,9 +10,10 @@ def lista_barracas(request):
     barracas = Barraca.objects.all()
     return render(request, 'comandas/lista_barracas.html', {'barracas': barracas})
 
-def lista_itens(request):
-    itens = Item.objects.all()
-    return render(request, 'comandas/lista_itens.html', {'itens': itens})
+def lista_itens_por_barraca(request, barraca_id):
+    barraca = Barraca.objects.get(id=barraca_id)
+    itens = Item.objects.filter(barraca=barraca)
+    return render(request, 'comandas/lista_itens.html', {'itens': itens, 'barraca': barraca})
 
 def lista_pedidos(request):
     pedidos = Pedido.objects.all()
@@ -22,12 +23,12 @@ def criar_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_itens')
+            item_criado = form.save()
+            return redirect('lista_itens', barraca_id=item_criado.barraca.id)
     else:
         form = ItemForm()
-        formset = ItemFormSet()
-    return render(request, 'comandas/criar_item.html', {'form': form, 'formset': formset})
+    return render(request, 'comandas/criar_item.html', {'form': form})
+
 
 def criar_barraca(request):
     if request.method == 'POST':
