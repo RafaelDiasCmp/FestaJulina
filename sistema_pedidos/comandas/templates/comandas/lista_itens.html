@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Itens</title>
+    <!-- adicionar bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <!-- adicionar navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <ul>
+            <li><a href="{% url 'criar_barraca' %}">Criar Barraca</a></li>
+            <li><a href="{% url 'criar_item' %}">Criar Item</a></li>
+        </ul>
+
+
+    </nav>
+
+</head>
+<body>
+    <!-- adicionar título com base no id da barraca-->
+    <h1 style="text-align: center;">Lista de Itens da Barraca <span style="font-weight: bold; color: blue;">{{ barraca.nome }}</span></h1>
+
+    <!-- adicionar tabela -->
+    <div style="display: flex; justify-content: center;">
+        <table class="table" style="width: 50%">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Preço</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in itens %}
+                    <tr>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.valor }}</td>
+                        <td><a href="#">Editar</a></td>
+                        <td><a href="#">Deletar</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</html>
