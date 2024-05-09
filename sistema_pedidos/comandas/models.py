@@ -3,22 +3,22 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
+class Barraca(models.Model):
+    """ Barraca que vende itens """
+    nome = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nome
+    
 class Item(models.Model):
+    """ Item que pode ser vendido """
     nome = models.CharField(max_length=100)
     valor = models.DecimalField(max_digits=5, decimal_places=2)
-    barraca = models.ForeignKey('Barraca', on_delete=models.CASCADE)
+    barraca = models.ForeignKey(Barraca, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
 
-
-    def __str__(self):
-        return self.user.username
-
-class Barraca(models.Model):
-    """ Barraca que vende itens """
-    nome = models.CharField(max_length=100)
-    
 
 
 class OperadorBarraca(models.Model):
