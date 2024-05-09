@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Barraca(models.Model):
     """ Barraca que vende itens """
     nome = models.CharField(max_length=100)
+    responsavel = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
         return self.nome
@@ -18,8 +19,6 @@ class Item(models.Model):
 
     def __str__(self):
         return self.nome
-
-
 
 class OperadorBarraca(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
