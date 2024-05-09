@@ -1,5 +1,5 @@
 from django import forms
-from .models import ItemPedido,Item,Barraca
+from .models import ItemPedido,Item,Barraca, Pedido
 
 class ItemPedidoForm(forms.ModelForm):
     class Meta:
@@ -17,12 +17,24 @@ class ItemPedidoForm(forms.ModelForm):
 class BarracaForm(forms.ModelForm):
     class Meta:
         model = Barraca
-        fields = ['nome']
+        fields = ['nome', 'responsavel']
         labels = {
             'nome': 'Nome',
+            'responsavel': 'Responsável',
         }
         widgets = {
             'nome': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+class PedidoForm(forms.ModelForm):
+    class Meta:
+        model = Pedido
+        fields = ['barraca']
+        labels = {
+            'barraca': 'Barraca',
+        }
+        widgets = {
+            'barraca': forms.Select(attrs={'class': 'form-control'}),
         }
 
 class ItemForm(forms.ModelForm):
@@ -39,3 +51,9 @@ class ItemForm(forms.ModelForm):
             'valor': forms.NumberInput(attrs={'class': 'form-control'}),
             'barraca': forms.Select(attrs={'class': 'form-control'}),
         }
+
+ItemPedidoFormSet = forms.inlineformset_factory(Pedido, ItemPedido, form=ItemPedidoForm, extra=1)
+
+ItemFormSet = forms.inlineformset_factory(Barraca, Item, form=ItemForm, extra=1)
+
+BarracaFormSet = forms.inlineformset_factory(Barraca, Item, form=ItemForm, extra=1)
