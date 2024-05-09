@@ -1,6 +1,8 @@
 # Django project files
 *.pyc
 *.pyo
+*.cpython-310.pyc
+
 __pycache__/
 *.sqlite3
 
