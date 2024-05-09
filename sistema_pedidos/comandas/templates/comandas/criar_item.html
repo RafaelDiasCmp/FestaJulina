@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Criar Item</title>
+    <!-- adicionar bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</html>
+
+<body>
+    <!-- adicionar titulo -->
+    {% include 'comandas/navbar.html' %}
+    <h1>Criar Item</h1>
+    <!-- adicionar formulario -->
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">Criar</button>
+        </form>
+    </div>
